@@ -1,5 +1,5 @@
 import React from "react";
-import {View, StyleSheet, Text} from "react-native";
+import {View, StyleSheet, Text, StatusBar} from "react-native";
 
 export default class HomePage extends React.Component {
     constructor(props, context) {

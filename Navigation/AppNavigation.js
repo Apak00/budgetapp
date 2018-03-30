@@ -1,5 +1,5 @@
 import React from "react";
-import {Image, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Image, StatusBar, StyleSheet, TouchableOpacity, View} from "react-native";
 import {DrawerNavigator, StackNavigator} from 'react-navigation'
 import LoginPage from '../_components/LoginStack/LoginPage'
 import RegisterPage from "../_components/LoginStack/RegisterPage";
@@ -23,14 +23,17 @@ const styles = StyleSheet.create({
 });
 
 const LoginStack = StackNavigator({
-    loginScreen: {screen: LoginPage, navigationOptions: {title: "Login"}},
+    loginScreen: {
+        screen: LoginPage, navigationOptions: {
+            title: "Login"
+        }
+    },
     registerScreen: {screen: RegisterPage, navigationOptions: {title: "Register"}},
 }, {
     initialRouteName: 'loginScreen',
     headerMode: 'float',
     navigationOptions: {
         headerStyle: {backgroundColor: '#444444'},
-        title: 'You are not logged in',
         headerTintColor: 'white'
     }
 });
@@ -80,16 +83,18 @@ const DrawerNavigation = StackNavigator({
     })
 });
 const PrimaryNav = StackNavigator({
-    loginStack: {screen: LoginStack},
+    loginStack: {
+        screen: LoginStack
+    },
     drawerStack: {screen: DrawerNavigation},
 }, {
     headerMode: "none",
     initialRouteName: 'loginStack',
     navigationOptions: {
-        headerStyle: {backgroundColor: '#05a1d1',},
+        headerStyle: {backgroundColor: '#05a1d1'},
         headerTintColor: '#fafafa',
         headerTitleStyle: {fontWeight: 'bold',},
     },
 });
 
-export default PrimaryNav
+export default PrimaryNav;

@@ -1,5 +1,5 @@
 import React from "react";
-import {View, StyleSheet, Text} from "react-native";
+import {View, StyleSheet, Text, StatusBar} from "react-native";
 
 const styles = StyleSheet.create({
     container: {
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     linky: {
         color: 'blue',
         paddingTop: 10
-    }
+    },
 });
 export default class LoginPage extends React.Component {
     constructor(props, context) {
@@ -33,3 +33,4 @@ export default class LoginPage extends React.Component {
         );
     }
 }
+
