@@ -3,12 +3,12 @@ import {Provider} from 'react-redux';
 import createStore from './Store/Reducers';
 import ReduxNavigation from './Navigation/ReduxNavigation';
 import {
-    AppRegistry,
     StyleSheet,
     View,
     StatusBar,
     Platform,
 } from 'react-native';
+
 
 const store = createStore;
 export default class App extends React.Component {
@@ -25,7 +25,6 @@ export default class App extends React.Component {
         )
     }
 }
-
 
 const MyStatusBar = ({backgroundColor, ...props}) => (
   <View style={[styles.statusBar, { backgroundColor }]}>
@@ -45,7 +44,7 @@ class AppWithStatusBar extends React.Component {
 }
 
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
-const APPBAR_HEIGHT = Platform.OS === 'ios' ? 30 : 24;
+const APPBAR_HEIGHT = Platform.OS === 'ios' ? 30 : 30;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -53,9 +52,15 @@ const styles = StyleSheet.create({
     statusBar: {
         height: STATUSBAR_HEIGHT,
     },
+    appBar: {
+        backgroundColor:'#79B45D',
+        height: APPBAR_HEIGHT,
+    },
+    content: {
+        flex: 1,
+        backgroundColor: '#33373B',
+    },
 });
-
-AppRegistry.registerComponent('App', () => AppWithStatusBar);
 
 
 

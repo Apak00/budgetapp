@@ -33,7 +33,6 @@ class ReduxNavigation extends React.Component {
             state: nav,
             addListener,
         });
-
         return <AppNavigation navigation={navigation} />;
     }
 }
