@@ -19,6 +19,10 @@ function Reducers(state = defaultState, action) {
 const initialRootState = AppNavigation.router.getStateForAction(AppNavigation.router.getActionForPathAndParams('loginStack'));
 
 function navReducer(state = initialRootState, action) {
+    const lastRoute = state.routes[state.routes.length - 1];
+    if(lastRoute.routeName === action.routeName){
+        return state;
+    }
     const newState = AppNavigation.router.getStateForAction(action, state);
     return newState || state;
 }
