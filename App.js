@@ -1,66 +1,67 @@
 import React from 'react';
-import {Provider} from 'react-redux';
-import createStore from './Store/Reducers';
+import {connect, Provider} from 'react-redux';
+import store from './Store/Reducers';
 import ReduxNavigation from './Navigation/ReduxNavigation';
-import {
-    StyleSheet,
-    View,
-    StatusBar,
-    Platform,
-} from 'react-native';
+import firebase from 'firebase';
+import {StatusBar, View} from "react-native";
+import {MenuProvider} from "react-native-popup-menu";
 
+console.disableYellowBox = true;
+console.ignoredYellowBox = true;
 
-const store = createStore;
 export default class App extends React.Component {
-    constructor() {
-        super();
-        console.log("APP OPENED");
+    constructor(props, context) {
+        super(props, context);
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDFcO-KUIU_TTMnkM3c0LjbTcTT0ytyWLo",
+            authDomain: "budgetapp000.firebaseapp.com",
+            databaseURL: "https://budgetapp000.firebaseio.com",
+            projectId: "budgetapp000",
+            storageBucket: "budgetapp000.appspot.com",
+            messagingSenderId: "801041384220"
+        };
+        firebase.initializeApp(firebaseConfig);
     }
 
     render() {
         return (
           <Provider store={store}>
-                  <AppWithStatusBar/>
+              <InterComponent/>
           </Provider>
         )
     }
 }
 
-const MyStatusBar = ({backgroundColor, ...props}) => (
-  <View style={[styles.statusBar, { backgroundColor }]}>
-      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
-  </View>
-);
-
-class AppWithStatusBar extends React.Component {
-    render() {
-        return (
-          <View style={styles.container}>
-              <MyStatusBar backgroundColor={"#000000"} barStyle="light-content" />
-              <ReduxNavigation/>
-          </View>
-        );
+function mapStateToProps(state, ownProps) {
+    return {
+        appState: state.others.statusBarStyle
     }
 }
 
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBar.currentHeight;
-const APPBAR_HEIGHT = Platform.OS === 'ios' ? 30 : 30;
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    statusBar: {
-        height: STATUSBAR_HEIGHT,
-    },
-    appBar: {
-        backgroundColor:'#79B45D',
-        height: APPBAR_HEIGHT,
-    },
-    content: {
-        flex: 1,
-        backgroundColor: '#33373B',
-    },
-});
+const InterComponent = connect(mapStateToProps)(() => (
+
+  <View style={{flex: 1}}>
+      <View style={store.getState().others.statusBarStyle}>
+          <StatusBar/>
+      </View>
+      <MenuProvider>
+          <ReduxNavigation/>
+      </MenuProvider>
+  </View>
+));
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,5 +1,9 @@
 import React from "react";
-import {View, StyleSheet, Text, StatusBar} from "react-native";
+import {View, Text,} from "react-native";
+import store from '../../Store/Reducers';
+import firebase from "firebase";
+import stylePack from "../../Styles/styles";
+
 
 export default class AboutPage extends React.Component {
     constructor(props, context) {
@@ -8,9 +12,13 @@ export default class AboutPage extends React.Component {
 
     render() {
         return (
-          <View>
-              <Text>
-                  Holla About
+          <View style={stylePack.container}>
+              <Text
+                style={stylePack.linky}
+                onPress={() => {
+                    store.dispatch({type: "LOG", text: "Redux's actions and reducers work just fine"})
+                }}>
+                  Release
               </Text>
           </View>
         );

@@ -1,34 +1,72 @@
 import React from "react";
-import {View, StyleSheet, Text, StatusBar} from "react-native";
+import {View, StyleSheet, Text, TextInput, StatusBar, Button} from "react-native";
+import stylePack from "../../Styles/styles";
+import firebase from "firebase/index";
+import store from "../../Store/Reducers";
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    linky: {
-        color: 'blue',
-        paddingTop: 10
-    },
-});
 export default class LoginPage extends React.Component {
     constructor(props, context) {
         super(props, context);
+
+        this.handleLogin = this.handleLogin.bind(this);
+        this.pretendLogin = this.pretendLogin.bind(this);
     }
+
+    componentDidMount() {
+        store.dispatch({type: "STATUSBAR_COLOR", color: "#333"});
+    }
+
+    handleLogin() {
+        if (this.state.email && this.state.password) {
+            firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function (err) {
+                console.log("E-mail or password is wrong! see: " + err.message)
+            }).then(() => {
+                console.log("user loged in");
+                this.props.navigation.navigate("drawerStack");
+            });
+        }
+    };
+
+    pretendLogin() {
+        firebase.auth().signInWithEmailAndPassword("Selamlar@kimo.com", "password").catch((err) => {
+            console.log("pretendious: " + err.message);
+        }).then(() => {
+            console.log("pretended log in");
+            this.props.navigation.navigate("drawerStack");
+        });
+    }
+
 
     render() {
         return (
-          <View style={styles.container}>
-              <Text>
-                  Holla Login
+          <View style={stylePack.container}>
+              <TextInput
+                style={stylePack.inputText}
+                onChangeText={(email) => this.setState({email})}
+                placeholder="E-mail"
+              />
+              <TextInput
+                style={stylePack.inputText}
+                onChangeText={(password) => this.setState({password})}
+                placeholder="password"
+                secureTextEntry={true}
+              />
+              <Button
+                title={"login"}
+                onPress={this.handleLogin}>
+              </Button>
+              <Text
+                style={stylePack.linky}
+                onPress={() => this.props.navigation.navigate('registerScreen')}>
+                  Register Here!
               </Text>
               <Text
-                style={styles.linky}
-                onPress={() => this.props.navigation.navigate('drawerStack')} >
-                  Pretend we logged in
+                style={stylePack.linky}
+                onPress={this.pretendLogin}>
+                  pretend Login!
               </Text>
+
+
           </View>
         );
     }

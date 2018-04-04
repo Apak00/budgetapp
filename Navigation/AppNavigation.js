@@ -1,40 +1,24 @@
 import React from "react";
-import {Image, StatusBar, StyleSheet, TouchableOpacity, View} from "react-native";
+import {Image, Text, TouchableOpacity, View} from "react-native";
 import {DrawerNavigator, StackNavigator} from 'react-navigation'
 import LoginPage from '../_components/LoginStack/LoginPage'
 import RegisterPage from "../_components/LoginStack/RegisterPage";
 import HomePage from "../_components/MainStack/HomePage";
 import AboutPage from "../_components/MainStack/AboutPage";
+import stylePack from "../Styles/styles";
+import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
+import firebase from 'firebase';
 
-
-const styles = StyleSheet.create({
-
-    hamburgerStick: {
-        backgroundColor: "black",
-        width: 30,
-        height: 4,
-        marginTop: 3,
-        marginBottom: 3,
-        borderRadius: 2,
-    },
-    hamburgerContainer: {
-        marginLeft: 10,
-    }
-});
 
 const LoginStack = StackNavigator({
-    loginScreen: {
-        screen: LoginPage, navigationOptions: {
-            title: "Login"
-        }
-    },
+    loginScreen: {screen: LoginPage, navigationOptions: {title: "Login",}},
     registerScreen: {screen: RegisterPage, navigationOptions: {title: "Register"}},
 }, {
     initialRouteName: 'loginScreen',
-    headerMode: 'float',
+    headerMode: 'screen',
     navigationOptions: {
-        headerStyle: {backgroundColor: '#444444'},
-        headerTintColor: 'white'
+        headerStyle: stylePack.headerStyle,
+        headerTintColor: "#fff",
     }
 });
 const DrawerStack = DrawerNavigator({
@@ -60,26 +44,48 @@ const DrawerStack = DrawerNavigator({
       },
 
   }, {
+      navigationOptions: {},
       gesturesEnabled: false
   }
 );
 const DrawerNavigation = StackNavigator({
     drawerStack: {screen: DrawerStack}
 }, {
-    headerMode: 'float',
+    headerMode: 'screen',
     navigationOptions: ({navigation}) => ({
         gesturesEnabled: false,
-        headerStyle: {backgroundColor: '#05a1d1'},
-        headerTintColor: 'white',
-        headerLeft: <TouchableOpacity
-          style={styles.hamburgerContainer}
-          onPress={() => {
-              navigation.navigate('DrawerToggle');
-          }}>
-            <View style={styles.hamburgerStick}/>
-            <View style={styles.hamburgerStick}/>
-            <View style={styles.hamburgerStick}/>
-        </TouchableOpacity>
+        headerStyle: [stylePack.headerStyle, {backgroundColor: '#05a1d1', borderTopColor: "#27B18A"}],
+        headerTintColor: '#fff',
+        headerLeft:
+          <TouchableOpacity
+            style={stylePack.hamburgerContainer}
+            onPress={() => {
+                navigation.navigate('DrawerToggle');
+            }}>
+              <View style={stylePack.hamburgerStick}/>
+              <View style={stylePack.hamburgerStick}/>
+              <View style={stylePack.hamburgerStick}/>
+          </TouchableOpacity>,
+        headerRight:
+          <Menu>
+              <MenuTrigger style={stylePack.dotContainer}>
+                  <View style={stylePack.dot}/>
+                  <View style={stylePack.dot}/>
+                  <View style={stylePack.dot}/>
+              </MenuTrigger>
+              <MenuOptions>
+                  <MenuOption
+                    onSelect={() => {
+                        firebase.auth().signOut().then(function () {
+                            // Sign-out successful.
+                        }, function (error) {
+                            // An error happened.
+                            alert("Could not Sign Out")
+                        });
+                    }}
+                    text='Log Out'/>
+              </MenuOptions>
+          </Menu>
     })
 });
 const PrimaryNav = StackNavigator({
@@ -91,9 +97,7 @@ const PrimaryNav = StackNavigator({
     headerMode: "none",
     initialRouteName: 'loginStack',
     navigationOptions: {
-        headerStyle: {backgroundColor: '#05a1d1'},
         headerTintColor: '#fafafa',
-        headerTitleStyle: {fontWeight: 'bold',},
     },
 });
 
