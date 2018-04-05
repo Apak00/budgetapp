@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import AppNavigation from './AppNavigation';
 import {createReduxBoundAddListener} from 'react-navigation-redux-helpers';
 import {BackHandler} from "react-native";
-import store from "../Store/Reducers";
 
 
 // here is our redux-aware our smart component

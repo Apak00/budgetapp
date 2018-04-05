@@ -1,23 +1,31 @@
 import React from "react";
-import {View, Text, BackHandler, Modal, TouchableHighlight} from "react-native";
-import firebase from "firebase/index";
+import {View, Text, BackHandler} from "react-native";
 import store from '../../Store/Reducers';
 import {connect} from "react-redux";
 import {Alert} from "react-native";
+import {NavigationActions} from "react-navigation";
+import firebase from "firebase";
 
 class HomePage extends React.Component {
     constructor(props, context) {
         super(props, context);
+
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
                 // User is signed in.
                 console.log("user is signed in! at HomePage");
             } else {
+                const resetAction = NavigationActions.reset({
+                    index: 0,
+                    actions: [NavigationActions.navigate({routeName: "loginStack"})],
+                    key: null
+                });
+                props.navigation.dispatch(resetAction);
                 // TODO reset the history of react-navigation
-                props.navigation.navigate("loginScreen");
                 console.log("user is signed out!");
             }
         });
+
     }
 
     componentDidMount() {
@@ -31,17 +39,13 @@ class HomePage extends React.Component {
 
     onBackPress = () => {
         Alert.alert(
-          'Log Out',
+          'Exit App',
           null,
           [
-              {text: 'Cancel', onPress: () => console.log('Canceled'), style: 'cancel'},
-              {text: 'OK', onPress: () => {
-                      firebase.auth().signOut().then(function () {
-                          // Sign-out successful.
-                      }, function (error) {
-                          // An error happened.
-                          alert("Could not Sign Out")
-                      });
+              {text: 'Cancel', style: 'cancel'},
+              {
+                  text: 'OK', onPress: () => {
+                      BackHandler.exitApp();
                   }
               },
           ],
@@ -53,26 +57,6 @@ class HomePage extends React.Component {
     render() {
         return (
           <View>
-              <Modal
-                animationType="slide"
-                transparent={false}
-                visible={store.getState().others.modalVisible}
-                onRequestClose={() => {
-                    store.dispatch({type: "MODAL", state: false});
-                }}>
-                  <View style={{marginTop: 22}}>
-                      <View>
-                          <Text>Hello World!</Text>
-
-                          <TouchableHighlight
-                            onPress={() => {
-                                store.dispatch({type: "MODAL", state: false});
-                            }}>
-                              <Text>Hide Modal</Text>
-                          </TouchableHighlight>
-                      </View>
-                  </View>
-              </Modal>
               <Text>
                   Holla Home
               </Text>

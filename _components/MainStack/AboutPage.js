@@ -1,7 +1,6 @@
 import React from "react";
 import {View, Text,} from "react-native";
 import store from '../../Store/Reducers';
-import firebase from "firebase";
 import stylePack from "../../Styles/styles";
 
 

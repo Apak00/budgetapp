@@ -1,5 +1,5 @@
 import React from "react";
-import {View, StyleSheet, Text, TextInput, Button} from "react-native";
+import {View, Text, TextInput, Button} from "react-native";
 import stylePack from "../../Styles/styles";
 import firebase from "firebase";
 

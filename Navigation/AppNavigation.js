@@ -1,5 +1,5 @@
 import React from "react";
-import {Image, Text, TouchableOpacity, View} from "react-native";
+import {Image, View} from "react-native";
 import {DrawerNavigator, StackNavigator} from 'react-navigation'
 import LoginPage from '../_components/LoginStack/LoginPage'
 import RegisterPage from "../_components/LoginStack/RegisterPage";
@@ -8,6 +8,7 @@ import AboutPage from "../_components/MainStack/AboutPage";
 import stylePack from "../Styles/styles";
 import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
 import firebase from 'firebase';
+import {BaseButton} from "react-native-gesture-handler";
 
 
 const LoginStack = StackNavigator({
@@ -45,7 +46,7 @@ const DrawerStack = DrawerNavigator({
 
   }, {
       navigationOptions: {},
-      gesturesEnabled: false
+      gesturesEnabled:false,
   }
 );
 const DrawerNavigation = StackNavigator({
@@ -53,19 +54,17 @@ const DrawerNavigation = StackNavigator({
 }, {
     headerMode: 'screen',
     navigationOptions: ({navigation}) => ({
-        gesturesEnabled: false,
-        headerStyle: [stylePack.headerStyle, {backgroundColor: '#05a1d1', borderTopColor: "#27B18A"}],
+        gesturesEnabled:false,
+        headerStyle: [stylePack.headerStyle, {backgroundColor: '#05a1d1', borderTopColor: "#2e4d6f"}],
         headerTintColor: '#fff',
         headerLeft:
-          <TouchableOpacity
+          <BaseButton
             style={stylePack.hamburgerContainer}
-            onPress={() => {
-                navigation.navigate('DrawerToggle');
-            }}>
+            onPress={()=>{navigation.navigate("DrawerToggle")}}>
               <View style={stylePack.hamburgerStick}/>
               <View style={stylePack.hamburgerStick}/>
               <View style={stylePack.hamburgerStick}/>
-          </TouchableOpacity>,
+          </BaseButton>,
         headerRight:
           <Menu>
               <MenuTrigger style={stylePack.dotContainer}>

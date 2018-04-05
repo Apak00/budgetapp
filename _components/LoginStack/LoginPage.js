@@ -1,5 +1,5 @@
 import React from "react";
-import {View, StyleSheet, Text, TextInput, StatusBar, Button} from "react-native";
+import {View, Text, TextInput, Button} from "react-native";
 import stylePack from "../../Styles/styles";
 import firebase from "firebase/index";
 import store from "../../Store/Reducers";
@@ -7,6 +7,8 @@ import store from "../../Store/Reducers";
 export default class LoginPage extends React.Component {
     constructor(props, context) {
         super(props, context);
+
+
 
         this.handleLogin = this.handleLogin.bind(this);
         this.pretendLogin = this.pretendLogin.bind(this);
@@ -31,7 +33,6 @@ export default class LoginPage extends React.Component {
         firebase.auth().signInWithEmailAndPassword("Selamlar@kimo.com", "password").catch((err) => {
             console.log("pretendious: " + err.message);
         }).then(() => {
-            console.log("pretended log in");
             this.props.navigation.navigate("drawerStack");
         });
     }
@@ -52,7 +53,7 @@ export default class LoginPage extends React.Component {
                 secureTextEntry={true}
               />
               <Button
-                title={"login"}
+                title={"log in"}
                 onPress={this.handleLogin}>
               </Button>
               <Text
@@ -60,11 +61,10 @@ export default class LoginPage extends React.Component {
                 onPress={() => this.props.navigation.navigate('registerScreen')}>
                   Register Here!
               </Text>
-              <Text
-                style={stylePack.linky}
+              <Button
+                title={"pretend Login!"}
                 onPress={this.pretendLogin}>
-                  pretend Login!
-              </Text>
+              </Button>
 
 
           </View>
