@@ -2,10 +2,12 @@ import React from "react";
 import {View, Text, TextInput, Button} from "react-native";
 import stylePack from "../../Styles/styles";
 import firebase from "firebase";
+import PropTypes from "prop-types";
 
 export default class RegisterPage extends React.Component {
     constructor(props, context) {
         super(props, context);
+
         this.handleRegister = this.handleRegister.bind(this);
     }
 
@@ -46,5 +48,7 @@ export default class RegisterPage extends React.Component {
         );
     }
 
-
 }
+RegisterPage.propTypes = {
+    navigation: PropTypes.object.isRequired,
+};

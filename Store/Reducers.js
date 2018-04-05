@@ -10,17 +10,6 @@ const defaultState = {
 
 function Reducers(state = defaultState, action) {
     switch (action.type) {
-        case "ADD_TODO":
-            console.log("ADD_TODO");
-            return state;
-        case "LOG":
-            console.log(action.text);
-            return state;
-        case "MODAL":
-            return {...state, modalVisible: action.state};
-        case "NAV_CHANGE":
-            console.log("NAV_CHANGE");
-            return state;
         case "STATUSBAR_COLOR":
             return {...state,statusBarStyle:{...state.statusBarStyle, backgroundColor:action.color}};
         default:

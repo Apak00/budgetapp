@@ -3,6 +3,7 @@ import {View, Text, TextInput, Button} from "react-native";
 import stylePack from "../../Styles/styles";
 import firebase from "firebase/index";
 import store from "../../Store/Reducers";
+import PropTypes from "prop-types";
 
 export default class LoginPage extends React.Component {
     constructor(props, context) {
@@ -71,4 +72,8 @@ export default class LoginPage extends React.Component {
         );
     }
 }
+
+LoginPage.propTypes = {
+    navigation: PropTypes.object.isRequired,
+};
 
