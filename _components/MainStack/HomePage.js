@@ -29,7 +29,7 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
-        store.dispatch({type: "STATUSBAR_COLOR", color: "#27B18A"});
+        store.dispatch({type: "STATUSBAR_COLOR", color: "#2e4d6f"});
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
     }
 
