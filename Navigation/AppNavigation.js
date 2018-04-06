@@ -9,6 +9,7 @@ import stylePack from "../Styles/styles";
 import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
 import firebase from 'firebase';
 import {BaseButton} from "react-native-gesture-handler";
+import store from "../Store/Reducers";
 
 
 const LoginStack = StackNavigator({
@@ -54,13 +55,14 @@ const DrawerNavigation = StackNavigator({
 }, {
     headerMode: 'screen',
     navigationOptions: ({navigation}) => ({
-        gesturesEnabled:false,
+        gesturesEnabled: false,
         headerStyle: [stylePack.headerStyle, {backgroundColor: '#05a1d1'}],
         headerTintColor: '#fff',
         headerLeft:
           <BaseButton
             style={stylePack.hamburgerContainer}
-            onPress={()=>{navigation.navigate("DrawerToggle")}}>
+            onPress={()=>{
+                navigation.navigate("DrawerToggle");}}>
               <View style={stylePack.hamburgerStick}/>
               <View style={stylePack.hamburgerStick}/>
               <View style={stylePack.hamburgerStick}/>

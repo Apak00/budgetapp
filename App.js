@@ -5,9 +5,10 @@ import ReduxNavigation from './Navigation/ReduxNavigation';
 import firebase from 'firebase';
 import {StatusBar, View} from "react-native";
 import {MenuProvider} from "react-native-popup-menu";
+import {NavigationActions} from "react-navigation";
 
 console.disableYellowBox = true;
-console.ignoredYellowBox = true;
+
 
 export default class App extends React.Component {
     constructor(props, context) {
@@ -22,6 +23,21 @@ export default class App extends React.Component {
             messagingSenderId: "801041384220"
         };
         firebase.initializeApp(firebaseConfig);
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in.
+                console.log("user is signed in!");
+            } else {
+                console.log("user is signed out!");
+                const resetAction = NavigationActions.reset({
+                    index: 0,
+                    actions: [NavigationActions.navigate({routeName: "loginStack"})],
+                    key: null
+                });
+                store.dispatch(resetAction)
+            }
+        });
+
     }
 
     render() {

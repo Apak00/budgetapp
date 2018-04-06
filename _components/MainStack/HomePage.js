@@ -9,23 +9,6 @@ import firebase from "firebase";
 class HomePage extends React.Component {
     constructor(props, context) {
         super(props, context);
-
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                // User is signed in.
-                console.log("user is signed in! at HomePage");
-            } else {
-                const resetAction = NavigationActions.reset({
-                    index: 0,
-                    actions: [NavigationActions.navigate({routeName: "loginStack"})],
-                    key: null
-                });
-                props.navigation.dispatch(resetAction);
-                // TODO reset the history of react-navigation
-                console.log("user is signed out!");
-            }
-        });
-
     }
 
     componentDidMount() {

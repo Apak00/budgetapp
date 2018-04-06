@@ -1,14 +1,14 @@
 import React from "react";
 import {View, Text, TextInput, Button} from "react-native";
 import stylePack from "../../Styles/styles";
-import firebase from "firebase/index";
+import firebase from "firebase";
 import store from "../../Store/Reducers";
 import PropTypes from "prop-types";
+import {NavigationActions} from "react-navigation";
 
 export default class LoginPage extends React.Component {
     constructor(props, context) {
         super(props, context);
-
 
 
         this.handleLogin = this.handleLogin.bind(this);
@@ -31,9 +31,21 @@ export default class LoginPage extends React.Component {
     };
 
     pretendLogin() {
-        firebase.auth().signInWithEmailAndPassword("Selamlar@kimo.com", "password").catch((err) => {
-            console.log("pretendious: " + err.message);
-        }).then(() => {
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
+          .then(function() {
+              // Existing and future Auth states are now persisted in the current
+              // session only. Closing the window would clear any existing state even
+              // if a user forgets to sign out.
+              // ...
+              // New sign-in will be persisted with session persistence.
+              return firebase.auth().signInWithEmailAndPassword("Selamlar@kimo.com", "password");
+          })
+          .catch(function(error) {
+              // Handle Errors here.
+              let errorCode = error.code;
+              let errorMessage = error.message;
+              console.log(errorCode + " : " + errorMessage)
+          }).then(() => {
             this.props.navigation.navigate("drawerStack");
         });
     }

@@ -44,7 +44,8 @@ export default styles = StyleSheet.create({
         borderRadius: 2,
     },
     hamburgerContainer: {
-        marginLeft: 10,
+        marginLeft: 5,
+        padding: 5,
     },
     dot: {
         backgroundColor: "black",
