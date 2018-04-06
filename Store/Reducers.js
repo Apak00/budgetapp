@@ -12,9 +12,11 @@ function Reducers(state = defaultState, action) {
     switch (action.type) {
         case "STATUSBAR_COLOR":
             return {...state,statusBarStyle:{...state.statusBarStyle, backgroundColor:action.color}};
+        case "LOG":
+            console.log(action.text);
+            return state;
         default:
             return state;
-
     }
 }
 
@@ -24,10 +26,14 @@ const initialRootState = AppNavigation.router.getStateForAction(AppNavigation.ro
 function navReducer(state = initialRootState, action) {
     const lastRoute = state.routes[state.routes.length - 1];
 
-    if (lastRoute.routeName === action.routeName) {
+    if (action.type === lastRoute.type && lastRoute.routeName === action.routeName) {
         // Repeated Root
+        console.log("repeated");
         return state;
-    } else {
+    } else if((action.routeName === "DrawerClose" || action.routeName === "DrawerOpen") && action.key === undefined){
+        console.log("drawer repeated");
+        return state;
+    }else {
         const newState = AppNavigation.router.getStateForAction(action, state);
         return newState || state;
     }

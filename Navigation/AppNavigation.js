@@ -47,22 +47,28 @@ const DrawerStack = DrawerNavigator({
 
   }, {
       navigationOptions: {},
-      gesturesEnabled:false,
+      gesturesEnabled: true,
   }
 );
 const DrawerNavigation = StackNavigator({
     drawerStack: {screen: DrawerStack}
 }, {
     headerMode: 'screen',
-    navigationOptions: ({navigation}) => ({
-        gesturesEnabled: false,
+    navigationOptions: ({navigation, transitioning}) => ({
+        gesturesEnabled: true,
         headerStyle: [stylePack.headerStyle, {backgroundColor: '#05a1d1'}],
         headerTintColor: '#fff',
         headerLeft:
           <BaseButton
             style={stylePack.hamburgerContainer}
-            onPress={()=>{
-                navigation.navigate("DrawerToggle");}}>
+            disabled={transitioning}
+            onPress={() => {
+                if (navigation.state.index === 0) {
+                    navigation.navigate({routeName:"DrawerOpen",key:"openNiceLa"});
+                } else {
+                    navigation.navigate({routeName:"DrawerClose",key:"closeNiceLa"})
+                }
+            }}>
               <View style={stylePack.hamburgerStick}/>
               <View style={stylePack.hamburgerStick}/>
               <View style={stylePack.hamburgerStick}/>

@@ -28,7 +28,7 @@ export default class App extends React.Component {
                 // User is signed in.
                 console.log("user is signed in!");
             } else {
-                console.log("user is signed out!");
+                console.log("No user found");
                 const resetAction = NavigationActions.reset({
                     index: 0,
                     actions: [NavigationActions.navigate({routeName: "loginStack"})],
