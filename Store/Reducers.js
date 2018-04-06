@@ -26,7 +26,7 @@ const initialRootState = AppNavigation.router.getStateForAction(AppNavigation.ro
 function navReducer(state = initialRootState, action) {
     const lastRoute = state.routes[state.routes.length - 1];
 
-    if (action.type === lastRoute.type && lastRoute.routeName === action.routeName) {
+    if (lastRoute.routeName === action.routeName) {
         // Repeated Root
         console.log("repeated");
         return state;
