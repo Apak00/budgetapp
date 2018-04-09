@@ -4,7 +4,6 @@ import stylePack from "../../Styles/styles";
 import firebase from "firebase";
 import store from "../../Store/Reducers";
 import PropTypes from "prop-types";
-import {NavigationActions} from "react-navigation";
 
 export default class LoginPage extends React.Component {
     constructor(props, context) {
@@ -33,11 +32,6 @@ export default class LoginPage extends React.Component {
     pretendLogin() {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
           .then(function() {
-              // Existing and future Auth states are now persisted in the current
-              // session only. Closing the window would clear any existing state even
-              // if a user forgets to sign out.
-              // ...
-              // New sign-in will be persisted with session persistence.
               return firebase.auth().signInWithEmailAndPassword("Selamlar@kimo.com", "password");
           })
           .catch(function(error) {

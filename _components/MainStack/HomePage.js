@@ -1,20 +1,35 @@
 import React from "react";
-import {View, Text, BackHandler} from "react-native";
+import {View, Text, BackHandler, AppState, Alert} from "react-native";
 import store from '../../Store/Reducers';
 import {connect} from "react-redux";
-import {Alert} from "react-native";
-import {NavigationActions} from "react-navigation";
-import firebase from "firebase";
+import Icon from "react-native-vector-icons/EvilIcons";
+
 
 class HomePage extends React.Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+            appState: AppState.currentState
+        }
     }
 
     componentDidMount() {
         store.dispatch({type: "STATUSBAR_COLOR", color: "#2e4d6f"});
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
+        AppState.addEventListener("change", this.handleChangeOnAppState);
     }
+
+    handleChangeOnAppState = (nextAppState) => {
+        console.log(nextAppState);
+        if (this.state.appState === "active" ) {
+            Alert.alert("Unpause", null, [
+                {
+                    text: 'OK', onPress: () => {
+                    }
+                },
+            ], {cancelable: false});
+        }
+    };
 
     componentWillUnmount() {
         BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
@@ -41,6 +56,8 @@ class HomePage extends React.Component {
         return (
           <View>
               <Text>
+                  <Icon name="heart" size={24} color={"black"}/>
+                  {this.state.appState}
                   Holla Home
               </Text>
           </View>

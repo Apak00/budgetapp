@@ -57,7 +57,7 @@ const DrawerNavigation = StackNavigator({
     navigationOptions: ({navigation, transitioning}) => ({
         gesturesEnabled: true,
         headerStyle: [stylePack.headerStyle, {backgroundColor: '#05a1d1'}],
-        headerTintColor: '#fff',
+        headerTintColor: '#333',
         headerLeft:
           <BaseButton
             style={stylePack.hamburgerContainer}
