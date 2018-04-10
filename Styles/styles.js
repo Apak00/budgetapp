@@ -60,5 +60,6 @@ export default styles = StyleSheet.create({
         height: 27,
         alignItems: "center",
         marginRight: 6,
-    }
+    },
+    appMainColor: {backgroundColor: "#05a1d1",},
 })

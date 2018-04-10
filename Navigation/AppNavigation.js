@@ -5,10 +5,12 @@ import LoginPage from '../_components/LoginStack/LoginPage'
 import RegisterPage from "../_components/LoginStack/RegisterPage";
 import HomePage from "../_components/MainStack/HomePage";
 import AboutPage from "../_components/MainStack/AboutPage";
+import ProfilePage from "../_components/MainStack/Profile/ProfilePage";
 import stylePack from "../Styles/styles";
 import {Menu, MenuOption, MenuOptions, MenuTrigger} from "react-native-popup-menu";
 import firebase from 'firebase';
 import {BaseButton} from "react-native-gesture-handler";
+import Icon from "react-native-vector-icons/FontAwesome";
 import store from "../Store/Reducers";
 
 
@@ -27,27 +29,25 @@ const DrawerStack = DrawerNavigator({
       homePage: {
           screen: HomePage, navigationOptions: {
               title: "Home",
-              drawerIcon: () => (
-                <Image
-                  source={{uri: `https://dummyimage.com/60x60/000/fff.jpg&text=1`}}
-                  style={{width: 20, height: 20, borderRadius: 10}}
-                />),
+              drawerIcon: () => (<Icon name={"home"} size={30}/>),
           }
       },
       aboutPage: {
           screen: AboutPage, navigationOptions: {
               title: "About us",
-              drawerIcon: () => (
-                <Image
-                  source={{uri: `https://dummyimage.com/60x60/000/fff.jpg&text=2`}}
-                  style={{width: 20, height: 20, borderRadius: 10}}
-                />),
+              drawerIcon: () => (<Icon name={"turkish-lira"} size={30}/>),
           }
       },
+      profilePage: {
+          screen: ProfilePage, navigationOptions: {
+              title: "Profile",
+              drawerIcon: () => (<Icon name={"user"} size={30}/>),
+          }
+      }
 
   }, {
       navigationOptions: {},
-      gesturesEnabled: true,
+      gesturesEnabled: false,
   }
 );
 const DrawerNavigation = StackNavigator({
@@ -55,8 +55,8 @@ const DrawerNavigation = StackNavigator({
 }, {
     headerMode: 'screen',
     navigationOptions: ({navigation, transitioning}) => ({
-        gesturesEnabled: true,
-        headerStyle: [stylePack.headerStyle, {backgroundColor: '#05a1d1'}],
+        gesturesEnabled: false,
+        headerStyle: [stylePack.headerStyle, stylePack.appMainColor],
         headerTintColor: '#333',
         headerLeft:
           <BaseButton
@@ -64,9 +64,9 @@ const DrawerNavigation = StackNavigator({
             disabled={transitioning}
             onPress={() => {
                 if (navigation.state.index === 0) {
-                    navigation.navigate({routeName:"DrawerOpen",key:"openNiceLa"});
+                    navigation.navigate({routeName: "DrawerOpen", key: "openNiceLa"});
                 } else {
-                    navigation.navigate({routeName:"DrawerClose",key:"closeNiceLa"})
+                    navigation.navigate({routeName: "DrawerClose", key: "closeNiceLa"})
                 }
             }}>
               <View style={stylePack.hamburgerStick}/>

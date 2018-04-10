@@ -9,7 +9,7 @@ class HomePage extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            appState: AppState.currentState
+            activityState: AppState.currentState
         }
     }
 
@@ -21,7 +21,7 @@ class HomePage extends React.Component {
 
     handleChangeOnAppState = (nextAppState) => {
         console.log(nextAppState);
-        if (this.state.appState === "active" ) {
+        if (this.state.activityState === "active" ) {
             Alert.alert("Unpause", null, [
                 {
                     text: 'OK', onPress: () => {
@@ -57,8 +57,8 @@ class HomePage extends React.Component {
           <View>
               <Text>
                   <Icon name="heart" size={24} color={"black"}/>
-                  {this.state.appState}
-                  Holla Home
+
+                  &nbsp;Holla Home
               </Text>
           </View>
         );

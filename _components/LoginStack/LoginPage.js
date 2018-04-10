@@ -12,6 +12,7 @@ export default class LoginPage extends React.Component {
 
         this.handleLogin = this.handleLogin.bind(this);
         this.pretendLogin = this.pretendLogin.bind(this);
+        this.pretendLogin();
     }
 
     componentDidMount() {
