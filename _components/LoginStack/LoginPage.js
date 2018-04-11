@@ -1,45 +1,54 @@
 import React from "react";
-import {View, Text, TextInput, Button} from "react-native";
+import {View, Text, TextInput, Button, Modal, ActivityIndicator} from "react-native";
 import stylePack from "../../Styles/styles";
 import firebase from "firebase";
 import store from "../../Store/Reducers";
 import PropTypes from "prop-types";
+import LoadingDots from "../common/LoadingDots";
+import {connect} from "react-redux";
+import FullScreenActionIndicator from "../common/FullScreenActionIndicator";
 
-export default class LoginPage extends React.Component {
+class LoginPage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
 
         this.handleLogin = this.handleLogin.bind(this);
         this.pretendLogin = this.pretendLogin.bind(this);
-        this.pretendLogin();
+        //this.pretendLogin();
     }
 
     componentDidMount() {
         store.dispatch({type: "STATUSBAR_COLOR", color: "#333"});
     }
 
-    handleLogin() {
+    async handleLogin() {
         if (this.state.email && this.state.password) {
-            firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function (err) {
-                console.log("E-mail or password is wrong! see: " + err.message)
-            }).then(() => {
-                console.log("user loged in");
-                this.props.navigation.navigate("drawerStack");
-            });
+            store.dispatch({type: "LOADER", onStatus: true});
+            await firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+              .catch(function (err) {
+                  console.log("E-mail or password is wrong! see: " + err.message)
+              })
+              .then(() => {
+                  console.log("user loged in");
+                  this.props.navigation.navigate("drawerStack");
+              }).finally(() => {
+                  store.dispatch({type: "LOADER", onStatus: false});
+              });
         }
     };
 
     pretendLogin() {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
-          .then(function() {
-              return firebase.auth().signInWithEmailAndPassword("Selamlar@kimo.com", "password");
+          .then(async () => {
+              store.dispatch({type: "LOADER", onStatus: true});
+              return (await firebase.auth().signInWithEmailAndPassword("Selamlar@kimo.com", "password"));
           })
-          .catch(function(error) {
-              // Handle Errors here.
-              let errorCode = error.code;
-              let errorMessage = error.message;
-              console.log(errorCode + " : " + errorMessage)
+          .finally(() => {
+              store.dispatch({type: "LOADER", onStatus: false});
+          })
+          .catch(function (error) {
+              console.log(error.code + " : " + error.message);
           }).then(() => {
             this.props.navigation.navigate("drawerStack");
         });
@@ -73,8 +82,7 @@ export default class LoginPage extends React.Component {
                 title={"pretend Login!"}
                 onPress={this.pretendLogin}>
               </Button>
-
-
+              <FullScreenActionIndicator />
           </View>
         );
     }
@@ -83,4 +91,13 @@ export default class LoginPage extends React.Component {
 LoginPage.propTypes = {
     navigation: PropTypes.object.isRequired,
 };
+
+const mapStateToProps = (state) => {
+    return {
+        //loaderOnStatus: state.others.loaderOnStatus
+    }
+};
+
+export default connect(mapStateToProps)(LoginPage);
+
 

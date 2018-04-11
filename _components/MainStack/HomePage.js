@@ -1,8 +1,9 @@
 import React from "react";
-import {View, Text, BackHandler, AppState, Alert} from "react-native";
+import {View, Text, BackHandler, AppState, Alert, ActivityIndicator} from "react-native";
 import store from '../../Store/Reducers';
 import {connect} from "react-redux";
 import Icon from "react-native-vector-icons/EvilIcons";
+import stylePack from "../../Styles/styles";
 
 
 class HomePage extends React.Component {
@@ -20,7 +21,6 @@ class HomePage extends React.Component {
     }
 
     handleChangeOnAppState = (nextAppState) => {
-        console.log(nextAppState);
         if (this.state.activityState === "active" ) {
             Alert.alert("Unpause", null, [
                 {
@@ -54,10 +54,9 @@ class HomePage extends React.Component {
 
     render() {
         return (
-          <View>
+          <View style={stylePack.container}>
               <Text>
                   <Icon name="heart" size={24} color={"black"}/>
-
                   &nbsp;Holla Home
               </Text>
           </View>

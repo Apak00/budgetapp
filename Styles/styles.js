@@ -47,7 +47,7 @@ export default styles = StyleSheet.create({
         marginLeft: 5,
         padding: 5,
     },
-    dot: {
+    dotMenu: {
         backgroundColor: "black",
         width: 5,
         height: 5,
@@ -55,11 +55,29 @@ export default styles = StyleSheet.create({
         marginTop: 2,
         marginBottom: 2,
     },
-    dotContainer: {
+    dotMenuContainer: {
         width: 27,
         height: 27,
         alignItems: "center",
         marginRight: 6,
     },
-    appMainColor: {backgroundColor: "#05a1d1",},
+    appMainColor: {
+        backgroundColor: "#05a1d1",
+    },
+    modalBackground: {
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        backgroundColor: '#00000040'
+    },
+    activityIndicatorWrapper: {
+        backgroundColor: '#FFFFFF',
+        height: 100,
+        width: 100,
+        borderRadius: 10,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    }
 })

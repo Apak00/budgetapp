@@ -75,10 +75,10 @@ const DrawerNavigation = StackNavigator({
           </BaseButton>,
         headerRight:
           <Menu>
-              <MenuTrigger style={stylePack.dotContainer}>
-                  <View style={stylePack.dot}/>
-                  <View style={stylePack.dot}/>
-                  <View style={stylePack.dot}/>
+              <MenuTrigger style={stylePack.dotMenuContainer}>
+                  <View style={stylePack.dotMenu}/>
+                  <View style={stylePack.dotMenu}/>
+                  <View style={stylePack.dotMenu}/>
               </MenuTrigger>
               <MenuOptions>
                   <MenuOption

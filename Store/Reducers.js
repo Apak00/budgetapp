@@ -6,6 +6,7 @@ const defaultState = {
     someproperty: "initial state!!!",
     statusBarStyle: {backgroundColor: "#333", height: 24},
     modalVisible: false,
+    loaderOnStatus: false,
 };
 
 function Reducers(state = defaultState, action) {
@@ -15,6 +16,8 @@ function Reducers(state = defaultState, action) {
         case "LOG":
             console.log(action.text);
             return state;
+        case "LOADER":
+            return {...state,loaderOnStatus:action.onStatus};
         default:
             return state;
     }

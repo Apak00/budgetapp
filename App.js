@@ -6,6 +6,7 @@ import firebase from 'firebase';
 import {StatusBar, View} from "react-native";
 import {MenuProvider} from "react-native-popup-menu";
 import {NavigationActions} from "react-navigation";
+import stylePack from "./Styles/styles";
 
 console.disableYellowBox = true;
 
@@ -40,6 +41,7 @@ export default class App extends React.Component {
 
     }
 
+
     render() {
         return (
           <Provider store={store}>
@@ -49,16 +51,16 @@ export default class App extends React.Component {
     }
 }
 
-function mapStateToProps(state, ownProps) {
+const mapStateToProps = (state) => {
     return {
-        appState: state.others.statusBarStyle
+        statusBarStyle: state.others.statusBarStyle,
+        loaderOnStatus: state.others.loaderOnStatus
     }
-}
+};
 
-const InterComponent = connect(mapStateToProps)(() => (
-
+const InterComponent = connect(mapStateToProps)((props) => (
   <View style={{flex: 1}}>
-      <View style={store.getState().others.statusBarStyle}>
+      <View style={props.statusBarStyle}>
           <StatusBar/>
       </View>
       <MenuProvider>
