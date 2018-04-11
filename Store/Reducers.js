@@ -7,6 +7,7 @@ const defaultState = {
     statusBarStyle: {backgroundColor: "#333", height: 24},
     modalVisible: false,
     loaderOnStatus: false,
+    appLoaderOnStatus: false,
 };
 
 function Reducers(state = defaultState, action) {

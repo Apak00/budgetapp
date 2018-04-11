@@ -10,7 +10,6 @@ import stylePack from "./Styles/styles";
 
 console.disableYellowBox = true;
 
-
 export default class App extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -44,6 +43,7 @@ export default class App extends React.Component {
 
     render() {
         return (
+
           <Provider store={store}>
               <InterComponent/>
           </Provider>
@@ -54,20 +54,24 @@ export default class App extends React.Component {
 const mapStateToProps = (state) => {
     return {
         statusBarStyle: state.others.statusBarStyle,
-        loaderOnStatus: state.others.loaderOnStatus
+        loaderOnStatus: state.others.loaderOnStatus,
     }
 };
 
 const InterComponent = connect(mapStateToProps)((props) => (
-  <View style={{flex: 1}}>
-      <View style={props.statusBarStyle}>
-          <StatusBar/>
-      </View>
-      <MenuProvider>
-          <ReduxNavigation/>
-      </MenuProvider>
-  </View>
-));
+
+    <View style={{flex: 1}}>
+            <View style={props.statusBarStyle}>
+                <StatusBar/>
+            </View>
+            <MenuProvider>
+                <ReduxNavigation/>
+            </MenuProvider>
+
+    </View>
+
+  ))
+;
 
 
 

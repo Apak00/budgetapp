@@ -12,7 +12,6 @@ class LoginPage extends React.Component {
     constructor(props, context) {
         super(props, context);
 
-
         this.handleLogin = this.handleLogin.bind(this);
         this.pretendLogin = this.pretendLogin.bind(this);
         //this.pretendLogin();
@@ -82,7 +81,7 @@ class LoginPage extends React.Component {
                 title={"pretend Login!"}
                 onPress={this.pretendLogin}>
               </Button>
-              <FullScreenActionIndicator />
+              <FullScreenActionIndicator/>
           </View>
         );
     }
